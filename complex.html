@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body id="body">
+    
+</body>
+
+<script type="text/javascript" src="complex.js"></script>
+
+<!-- Attack idea: overwrite constant IP address in memory -->
+
+<script type="text/javascript">
+
+    // More complicated WASM (has libc + filesystem)
+    // Wait for WASM runtime to load before using it
+    Module.onRuntimeInitialized = function() {
+        // Main ran by deafault
+        // _main();
+
+        // Can access memory thru this variable
+        console.log(wasmMemory.buffer);
+    }
+
+    
+</script>
+
+</html>

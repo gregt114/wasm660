@@ -1,4 +1,3 @@
-//#include <stdlib.h>
 #include <string.h>
 
 
@@ -6,16 +5,18 @@
 // All functions are exported by default in side module mode
 
 // Imported JS functions from env object
-extern void imported_func(int);
+extern void print(char*);
 
-float g(float x) {
-    return x + 1.1;
-}
+char src[] = "someRandomString";
 
 int main(){
-    int x = 1;
+    print("testing123");
 
-    imported_func(42);
+    // We can directly read/write to linear memory with dereferencing
+    // *(char*)0x0 = 'b';
 
-    return x+1;
+    char* dest = 0x0;
+    strcpy(dest, src);
+
+    return 0;
 }

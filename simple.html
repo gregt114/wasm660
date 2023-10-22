@@ -11,6 +11,7 @@
 
 <!-- <script type="text/javascript" src="test.js"></script> -->
 
+<!-- Attack idea: overwrite constant IP address in memory -->
 
 <script type="text/javascript">
 
@@ -29,16 +30,26 @@
             __stack_pointer: stack_pointer, // bytes
 
             // Import JS functions to C code
-            imported_func: function(arg) {
-                console.log(arg);
-                document.getElementById("body").style.backgroundColor = "red";
+
+            // Basic function for printing strings from linear memory
+            print: function(pointer) {
+                let decoder = new TextDecoder("utf8");
+
+                // Find next null byte
+                let array = new Uint8Array(memory.buffer);
+                let end = array.indexOf(0, pointer);
+
+                // Decode to utf8 text
+                let js_string = decoder.decode(array.slice(pointer, end));
+                console.log(js_string);
             }
         },
     };
 
 
     WebAssembly.instantiateStreaming(fetch("simple.wasm"), importObject).then(obj => {
-        console.log(obj.instance.exports.main());
+        obj.instance.exports.main();
+        console.log("--- MEMORY ---")
         console.log(memory);
     });
 
