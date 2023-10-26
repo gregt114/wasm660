@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body id="body">
+
+    <input type="text" id="string_input">
+    <input type="submit" id="submit">
+    
+</body>
+
+<script type="text/javascript" src="complex.js"></script>
+
+<!-- Attack idea: overwrite constant IP address in memory -->
+
+<script type="text/javascript">
+
+    // More complicated WASM (has libc + filesystem)
+    // Wait for WASM runtime to load before using it
+    Module.onRuntimeInitialized = function() {
+        // // Main ran by deafault
+        // // _main();
+
+        // // Test calling C from JS
+        // // Can also use _func(arg) syntax, however will need
+        // // to do manual type conversions if neccessary
+        // func = Module.cwrap("func", "number", ["number"]);
+        // console.log(func(41));
+
+        // // Can access memory thru this variable
+        // console.log(wasmMemory.buffer);
+
+        // // Direct access to memory with getValue/setValue
+        // let val = getValue(0x0, "i8");
+        // console.log(val);
+
+
+
+        console.log(wasmMemory.buffer);
+        let vuln = Module.cwrap("vuln", "void", ["string"]);
+
+
+        // Add event listener that calls WASM when clicked
+        document.getElementById("submit").onclick = function() {
+            let string = document.getElementById("string_input").value;
+            vuln(string);
+        }
+        
+    }
+
+    
+</script>
+
+</html>
