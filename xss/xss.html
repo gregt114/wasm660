@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XSS Example</title>
+</head>
+
+
+<body id="body">
+
+
+    <textarea id="post-input"></textarea>
+    <br>
+    <input type="submit" id="submit-button">
+    <br>
+    <div id="output">
+    </div>
+
+    
+</body>
+
+
+
+<script type="text/javascript" src="xss.js"></script>
+<script type="text/javascript">
+
+    // Wait for WASM runtime to load before executing
+    Module.onRuntimeInitialized = function() {
+        analyze = Module.cwrap("analyze", "void", ["string"]);
+        console.log(wasmMemory.buffer);
+
+        // Idea: social media posting
+        // Text from post fed into ML model (WASM) to do classification,
+        // thus string must be copied into WASM which overflows the buffer
+        // and overwrites some HTML code in wasm that is used in a document.write
+
+        // When user posts, analyze their message
+        document.getElementById("submit-button").onclick = function() {
+            let text = document.getElementById('post-input').value;
+            analyze(text);
+        }
+        
+
+        
+    }
+
+    
+</script>
+</html>

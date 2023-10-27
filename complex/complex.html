@@ -40,7 +40,7 @@
 
 
         console.log(wasmMemory.buffer);
-        let vuln = Module.cwrap("vuln", "void", ["string"]);
+        let vuln = Module.cwrap("vuln", "void", []);
 
 
         // Add event listener that calls WASM when clicked
