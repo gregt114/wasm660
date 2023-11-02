@@ -12,19 +12,17 @@
 // If no good match, it will allocate at the top of the heap. Pretty similar implementation to libc's malloc.
 int main(){
 
-    char* a = (char*) malloc(8);
-    char* b = (char*) malloc(8);
-    char* c = (char*) malloc(8);
-    strcpy(a, "aaaaaaaa");
-    strcpy(b, "bbbbbbbb");
-    strcpy(c, "cccccccc");
-    free(b);
+    char* a = malloc(8);
+    
+    memcpy(a-0x4, "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff", 20);
 
-    printf("%p %p %p\n", a, b, c);
+    free(a);
+    printf("%p\n", a);
 
 
-
-
+    char* b = malloc(8);
+    char* c = malloc(8);
+    printf("%p   %p\n", b, c);
     
     return 0;
 }
