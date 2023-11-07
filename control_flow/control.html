@@ -9,6 +9,15 @@
 
 <body id="body">
 
+    Enter Your Name:
+    <br>
+    <textarea id="input"></textarea>
+    <br>
+    <button type="submit" id="submit">Submit</button>
+    <div id="output">
+
+    </div>
+
     
 </body>
 
@@ -17,13 +26,34 @@
 <script type="text/javascript" src="control.js"></script>
 <script type="text/javascript">
 
+    // TODO: need to put caveat in report that emscripten_run_script
+    // needs to be used in order to be in the table (also func sig has to match)
+
+    // payload:
+    // alert('Hijacked!');//aaaaaaaaaaa\n   (but use an actual newline instead of \n)
+
+     
+
     // Wait for WASM runtime to load before executing
     Module.onRuntimeInitialized = function() {
 
+        // For debugging
         console.log(wasmMemory.buffer);
+
+        let register_customer = Module.cwrap("register_basic_customer", "void", ["string"]);
+
+        // Add event listener to submit button
+        document.getElementById("submit").onclick = function() {
+            let name = document.getElementById("input").value;
+            register_customer(name);
+            document.getElementById("output").innerHTML = "Hello " + name + "!";
+
+        }
 
         
     }
+
+   
 
     
 </script>
