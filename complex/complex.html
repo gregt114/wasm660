@@ -22,7 +22,7 @@
     // Wait for WASM runtime to load before using it
     Module.onRuntimeInitialized = function() {
         // // Main ran by deafault
-        // // _main();
+        // _main();
 
         // // Test calling C from JS
         // // Can also use _func(arg) syntax, however will need
@@ -40,7 +40,7 @@
 
 
         console.log(wasmMemory.buffer);
-        let vuln = Module.cwrap("vuln", "void", []);
+        let vuln = Module.cwrap("vuln", "void", ["string"]);
 
 
         // Add event listener that calls WASM when clicked
