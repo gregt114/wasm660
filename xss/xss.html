@@ -6,15 +6,24 @@
     <title>XSS Example</title>
 </head>
 
+<style>
+    .center-div {
+        width: 50%; /* Adjust the width as needed */
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+
 
 <body id="body">
 
-
-    <textarea id="post-input"></textarea>
-    <br>
-    <input type="submit" id="submit-button">
-    <br>
-    <div id="output">
+    <div class="center-div">
+        <textarea id="post-input"></textarea>
+        <br>
+        <input type="submit" id="submit-button">
+        <br>
+        <div id="output">
+        </div>
     </div>
 
     
@@ -38,7 +47,7 @@
         // When user posts, analyze their message
         document.getElementById("submit-button").onclick = function() {
             let text = document.getElementById('post-input').value;
-            analyze(text);
+            analyze(text); // pass data to WASM module
         }
         
 

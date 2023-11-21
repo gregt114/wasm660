@@ -10,13 +10,12 @@
 
 /*
 PAYLOAD:
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadocument.write('<script type=\'text/javascript\'>alert(\'Hacked!\')</script>')
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadocument.write('<script type=\'text/javascript\'>alert(\'XSS!\')</script>')
 */
 
 
 void analyze(char* input) {
 
-    //char command[] = "document.write('Done with analysis!')";
     char command[] = "document.getElementById('output').innerHTML = 'Done with analysis!'";
     char text[32];
 
@@ -26,7 +25,7 @@ void analyze(char* input) {
     // printf("Command: 0x%x\n", command);
     // printf("Text   : 0x%x\n", text);
 
-    // Write to DOM to let user know process is done
+    // Write to DOM
     emscripten_run_script(command);
 
 }

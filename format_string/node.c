@@ -10,6 +10,8 @@
 
 char* process(char* msg, int length) {
 
+    char sensitive[] = "aaaaaaaa";
+
     char* result = (char*) malloc(length);
     
     // Copy msg into result
