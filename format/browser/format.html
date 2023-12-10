@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Format</title>
+</head>
+<body id="body">
+
+    <textarea id="string_input"></textarea>
+    <input type="submit" id="submit">
+    
+</body>
+
+<script type="text/javascript" src="format.js"></script>
+<script type="text/javascript">
+
+    Module.onRuntimeInitialized = function() {
+
+        vuln = Module.cwrap("vuln", "string", ["string"]);
+
+        console.log(wasmMemory.buffer);
+
+
+        // Add event listener that calls WASM when clicked
+        document.getElementById("submit").onclick = function() {
+            let string = document.getElementById("string_input").value;
+            console.log(vuln(string));
+        }
+        
+    }
+
+    
+</script>
+
+</html>
